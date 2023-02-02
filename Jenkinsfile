@@ -46,13 +46,14 @@ pipeline {
         stage('Start new container using latest image and create user') {
             steps {     
               script {
+                
                 def dateTime = (sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim())
                 def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
                 sh """
                 docker run -itd --name ${containerName} --rm \
                     -e MYSQL_ROOT_PASSWORD=$params.MYSQL_PASSWORD \
                     -p $params.MYSQL_PORT:3306 \
-                    -v $(pwd)/pipeline/include/:/docker-entrypoint-initdb.d/ \
+                    -v pipeline/include/:/docker-entrypoint-initdb.d/ \
                     $params.ENVIRONMENT_NAME:latest
                 """
 
