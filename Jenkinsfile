@@ -37,11 +37,11 @@ pipeline {
                 def localsqldir = "/home/support/works/orajen-fork/sql"
                 sh """
                 if [ "$db_port" -gt 0 ] && [ "$db_port" -lt 65536 ]; then
-                    if [ "${db_type}" -eq "mysql" ]; then
+                    if [ "$db_type" == "mysql" ]; then
                       echo "mysql"
-                    elif [ "${db_type}" -eq "postgres" ]; then
+                    elif [ "$db_type" == "postgres" ]; then
                       echo "postgres"
-                    elif [ "${db_type}" -eq "oracle" ]; then
+                    elif [ "$db_type" == "oracle" ]; then
                       echo "oracle"
                     else
                       echo "erro do else"
