@@ -31,6 +31,7 @@ pipeline {
                     echo "Creating docker image with name $params.ENVIRONMENT_NAME using port: $params.MYSQL_PORT"
                     sh """
                     sed -e 's/<PASSWORD>/$params.MYSQL_PASSWORD/g' pipelines/include/create_developer.template > pipelines/include/create_developer.sql
+                    ls $(pwd)/pipelines/include/create_developer.sql -ald
                     """
 
                     sh """
@@ -50,7 +51,10 @@ pipeline {
                 def dateTime = (sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim())
                 def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
                 sh """
-                docker run -itd --name ${containerName} --rm -e MYSQL_ROOT_PASSWORD=$params.MYSQL_PASSWORD -p $params.MYSQL_PORT:3306 $params.ENVIRONMENT_NAME:latest
+                docker run -itd --name ${containerName} --rm -e MYSQL_ROOT_PASSWORD=$params.MYSQL_PASSWORD \
+                    -p $params.MYSQL_PORT:3306 \
+                    -v /$(pwd)/pipelines/include/create_developer.sql:/docker-entrypoint-initdb.d
+                    $params.ENVIRONMENT_NAME:latest
                 """
 
                 echo "Docker container created: $containerName"
