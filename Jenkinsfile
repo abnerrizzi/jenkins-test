@@ -7,7 +7,7 @@ pipeline {
     parameters {
         string name: 'ENVIRONMENT_NAME', trim: true, defaultValue: "env1"
         string name: 'DB_PORT', trim: true , defaultValue: "13306"
-        password name: 'DB_PASSWORD', trim: true, defaultValue: "toor"
+        string name: 'DB_PASS', trim: true, defaultValue: "toor"
         choice name: 'DB_TYPE', choices: "mysql\npostgres\noracle"
     }
       stages {
