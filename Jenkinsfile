@@ -37,7 +37,11 @@ pipeline {
                 def localsqldir = "/home/support/works/orajen-fork/sql"
 
                 if (params.DB_TYPE.contains('mysql')) {
-                    sh """echo if111"""
+                    sh """echo mysql"""
+                } else if (params.DB_TYPE.contains('postgres')) {
+                    sh """echo postgres"""
+                } else if (params.DB_TYPE.contains('oracle')) {
+                    sh """echo oracle"""
                 } else {
                     sh """ echo else """
                 }
