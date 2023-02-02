@@ -9,9 +9,7 @@ pipeline {
         password defaultValue: '', description: 'Password to use for MySQL container - root user', name: 'DB_PASSWORD'
         string name: 'DB_PORT', trim: true , defaultValue: "13306"
         string name: 'DB_PASSWORD', trim: true, defaultValue: "toor"
-        choice(
-            name: 'DB_TYPE',
-            choices: "mysql\npostgres\noracle")
+        choice name: 'DB_TYPE', choices: "mysql\npostgres\noracle"
     }
       stages {
         stage('Checkout GIT repository') {
