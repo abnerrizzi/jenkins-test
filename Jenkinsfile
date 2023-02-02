@@ -46,7 +46,6 @@ pipeline {
         stage('Start new container using latest image and create user') {
             steps {     
               script {
-                
                 def dateTime = (sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim())
                 def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
                 sh """
