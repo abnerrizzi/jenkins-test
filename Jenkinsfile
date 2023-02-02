@@ -53,7 +53,7 @@ pipeline {
                 docker run -itd --name ${containerName} --rm -e MYSQL_ROOT_PASSWORD=$params.MYSQL_PASSWORD -p $params.MYSQL_PORT:3306 $params.ENVIRONMENT_NAME:latest
                 """
 
-                echo "Docker container created: mysql://developer@HOST_IP_ADDR/"
+                echo "Docker container created: mysql://developer@<docker_host_ip>:$params.MYSQL_PORT/"
 
               }
             }
