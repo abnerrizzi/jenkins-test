@@ -12,7 +12,7 @@ pipeline {
     }
       stages {
         stage('Checkout GIT repository') {
-            steps {     
+            steps {
               script {
                 git branch: 'feature-jenkins',
                 credentialsId: 'dfe8230d-dd9b-49df-8ed7-362b17864d2e',
