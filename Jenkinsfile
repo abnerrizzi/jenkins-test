@@ -31,7 +31,7 @@ pipeline {
                 because that mount point directory must be in the docker host, not in jenkins container
                 I think if jenkis is istalled locally or using a agent will be easy to fix this hardcoded session
                 */
-                def localsqldir_write = (sh(script: "pwd", returnStdout: true);trim())
+                def localsqldir_write = (sh(script: "pwd", returnStdout: true).trim())
                 def localsqldir = "/home/support/works/orajen-fork/sql"
                 sh """
                 if [ "$value" -gt 0 ] && [ "$value" -lt 65536 ]; then
