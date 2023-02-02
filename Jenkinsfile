@@ -32,10 +32,10 @@ pipeline {
                 def dateTime = (sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim())
                 def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
                 sh """
-                docker run -itd --name ${containerName} --rm -e MYSQL_USER=developer -e MYSQL_PASSWORD=$params.MYSQL_PASSWORD -e MYSQL_DATABASE=DEVAPP -p $params.MYSQL_PORT:3306 --name $params.ENVIRONMENT_NAME mysql
+                docker run -itd --name ${containerName} --rm -e MYSQL_USER=developer -e MYSQL_PASSWORD=$params.MYSQL_PASSWORD -e MYSQL_DATABASE=DEVAPP -p $params.MYSQL_PORT:3306 --name containerName mysql
                 """
 
-                echo "Docker container created: mysql://developer@<docker_host_ip>:$params.MYSQL_PORT/"
+                echo "Docker container name $containerName created: mysql://developer@<docker_host_ip>:$params.MYSQL_PORT/"
 
               }
             }
