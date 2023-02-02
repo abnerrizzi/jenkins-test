@@ -1,7 +1,4 @@
 pipeline {
-    agent {
-        label 'docker-host'
-    }
     options {
         disableConcurrentBuilds()
         disableResume()
