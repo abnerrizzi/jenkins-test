@@ -28,18 +28,14 @@ pipeline {
                 def value = "${params.MYSQL_PORT}"
                 sh """
                 if [[ "$value" -gt 0 ]] && [[ "$value" -lt 65536 ]]; then
-                    echo "Valid TCP port"
+                    docker run -it -d --rm --name ${containerName} -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_USER=developer -e MYSQL_PASSWORD=$params.MYSQL_PASSWORD -e MYSQL_DATABASE=DEVAPP -p $params.MYSQL_PORT:3306 --name $containerName mysql
+                    echo "Docker container name $containerName created: mysql://developer@<docker_host_ip>:$params.MYSQL_PORT/"
                 else
                     echo "Invalid TCP port"
                     exit
                 fi
                 """
 
-                sh """
-                docker run -it -d --rm --name ${containerName} -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_USER=developer -e MYSQL_PASSWORD=$params.MYSQL_PASSWORD -e MYSQL_DATABASE=DEVAPP -p $params.MYSQL_PORT:3306 --name $containerName mysql
-                """
-
-                echo "Docker container name $containerName created: mysql://developer@<docker_host_ip>:$params.MYSQL_PORT/"
               }
             }
         }
