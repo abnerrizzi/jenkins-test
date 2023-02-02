@@ -17,7 +17,7 @@ pipeline {
         stage('Checkout GIT repository') {
             steps {     
               script {
-                git branch: 'master',
+                git branch: 'feature-jenkins',
                 credentialsId: 'd499512c-41c0-4a53-bcf1-fe62fd9fd135',
                 url: 'git@github.com:arizzi-sandbox/orajen.git'
               }
