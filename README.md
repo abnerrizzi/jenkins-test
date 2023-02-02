@@ -1,3 +1,25 @@
+-----
+# Solution
+I have never worked implementing or creating a new pipeline on Jenkins before, only supporting it was my first time.
+So I create a docker-compose to start a jenkins container with a custom imagem that add docker to jenkins image and allow to runs the docker of the host through mounted point.
+
+Because that Jenkins was unable do run ```docker run -v <jenkins_folder>:/container folder```. As I am using docker inside a container, when we start a container the docker is looking for a file in host, not inside the jenkins container, to fix that I hardcoded the path of my docker host.
+
+I tried to be concise.
+
+# Observations and recommendations
+[FIX]es:
+- type in sql file;
+- docker build process removed (unnedded step waisting time and resources)
+
+
+To implement the optional features will require the following steps:
+- basic mysql and postgres was tested
+- for oracle I didnt have enough space and ram to validate and develop a script to create a database and populate it.
+
+
+
+
 # Welcome
 
 ## Overview
