@@ -53,7 +53,7 @@ pipeline {
                 docker run -itd --name ${containerName} --rm \
                     -e MYSQL_ROOT_PASSWORD=$params.MYSQL_PASSWORD \
                     -p $params.MYSQL_PORT:3306 \
-                    -v ./pipeline/include/:/docker-entrypoint-initdb.d/ \
+                    -v $(pwd)/pipeline/include/:/docker-entrypoint-initdb.d/ \
                     $params.ENVIRONMENT_NAME:latest
                 """
 
