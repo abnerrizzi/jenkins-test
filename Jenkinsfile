@@ -36,8 +36,10 @@ pipeline {
                 def localsqldir_write = (sh(script: "pwd", returnStdout: true).trim())
                 def localsqldir = "/home/support/works/orajen-fork/sql"
 
-                if (env.BRANCH_NAME.contains('deploy')) {
+                if (params.DB_TYPE.contains('mysql')) {
                     sh """echo if111"""
+                } else {
+                    sh """ echo else """
                 }
               }
             }
