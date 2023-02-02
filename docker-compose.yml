@@ -1,7 +1,9 @@
 version: '3.8'
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    image: my-custom-jenkins
+    build:
+      context: jenkins/
     privileged: true
     user: root
     ports:
