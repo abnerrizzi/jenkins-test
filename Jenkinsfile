@@ -18,8 +18,8 @@ pipeline {
             steps {     
               script {
                 git branch: 'master',
-                credentialsId: '21f01d09-06da9cc35103',
-                url: 'git@mysecret-nonexistent-repo/jenkins.git'
+                credentialsId: 'd499512c-41c0-4a53-bcf1-fe62fd9fd135',
+                url: 'git@github.com:arizzi-sandbox/orajen.git'
               }
             }
         }
