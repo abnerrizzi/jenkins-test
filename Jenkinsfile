@@ -23,6 +23,15 @@ pipeline {
               }
             }
         }
+        stage('hostname and app versions:') {
+            steps {
+                sh '''
+                    docker version
+                    docker info
+                    docker-compose version
+                '''
+            }
+        }
         stage('Create latest Docker image') {
             steps {     
               script {
