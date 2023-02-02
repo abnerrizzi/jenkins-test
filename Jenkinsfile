@@ -1,4 +1,6 @@
 pipeline {
+    agent {
+    }
     options {
         disableConcurrentBuilds()
         disableResume()
