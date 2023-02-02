@@ -36,6 +36,15 @@ pipeline {
                 def localsqldir = "/home/support/works/orajen-fork/sql"
                 sh """
                 if [ "$value" -gt 0 ] && [ "$value" -lt 65536 ]; then
+                    if [ "${params.DB_TYPE}" == "mysql" ]; then
+                      echo "mysql"
+                    elif [ "${params.DB_TYPE}" == "postgres" ]; then
+                      echo "postgres"
+                    elif [ "${params.DB_TYPE}" == "oracle" ]; then
+                      echo "oracle"
+                    else
+                      echo "erro do else"
+                    fi
 
                     #if [ \"$params.DB_TYPE\" == \"mysql\" ]; then
                     #    docker run -it -d --rm --name ${containerName} -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_USER=developer -e MYSQL_PASSWORD=$params.DB_PASS -e MYSQL_DATABASE=DEVAPP -p $params.DB_PORT:3306 --name $containerName -v $localsqldir:/docker-entrypoint-initdb.d mysql
