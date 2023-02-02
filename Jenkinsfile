@@ -24,25 +24,7 @@ pipeline {
               }
             }
         }
-        stage('Create latest Docker image') {
-            steps {     
-              script {
-                if (!params.SKIP_STEP_1){    
-                    echo "Creating docker image with name $params.ENVIRONMENT_NAME using port: $params.MYSQL_PORT"
-                    sh """
-                    sed -e 's/<PASSWORD>/$params.MYSQL_PASSWORD/g' pipelines/include/create_developer.template > pipelines/include/create_developer.sql
-                    """
 
-                    sh """
-                    docker build pipelines/ -t $params.ENVIRONMENT_NAME:latest
-                    """
-
-                }else{
-                    echo "Skipping STEP1"
-                }
-              }
-            }
-        }
         stage('Start new container using latest image and create user') {
             steps {     
               script {
@@ -50,7 +32,7 @@ pipeline {
                 def dateTime = (sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim())
                 def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
                 sh """
-                docker run -itd --name ${containerName} --rm -e MYSQL_ROOT_PASSWORD=$params.MYSQL_PASSWORD -p $params.MYSQL_PORT:3306 $params.ENVIRONMENT_NAME:latest
+                docker run -itd --name ${containerName} --rm -e MYSQL_ROOT_PASSWORD=$params.MYSQL_PASSWORD -p $params.MYSQL_PORT:3306 --name $params.ENVIRONMENT_NAME mysql
                 """
 
                 echo "Docker container created: mysql://developer@<docker_host_ip>:$params.MYSQL_PORT/"
