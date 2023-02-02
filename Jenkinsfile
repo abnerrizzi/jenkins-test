@@ -31,6 +31,9 @@ pipeline {
                     echo "Creating docker image with name $params.ENVIRONMENT_NAME using port: $params.MYSQL_PORT"
                     sh """
                     sed -e 's/<PASSWORD>/$params.MYSQL_PASSWORD/g' pipelines/include/create_developer.template > pipelines/include/create_developer.sql
+                    """
+
+                    sh """
                     ls $(pwd)/pipelines/include/create_developer.sql -ald
                     """
 
