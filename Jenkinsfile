@@ -23,7 +23,7 @@ pipeline {
         stage('Start new container using latest image and create user') {
             steps {     
               script {
-                def portNumber = $params.MYSQL_PORT
+                def portNumber = "${params.MYSQL_PORT}"
                 if (portNumber >= 0 && portNumber <= 65535) {
                   def dateTime = (sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim())
                   def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
