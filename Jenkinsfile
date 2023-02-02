@@ -15,7 +15,7 @@ pipeline {
             choices: "Option1\nOption2",
             description: 'interesting stuff' )
 */
-        multipleChoice choice: 'DB_TYPE', choices: ['mysql', 'postgres', 'oracle'], defaultValue: "mysql"
+        choice: 'DB_TYPE', choices: ['mysql', 'postgres', 'oracle'], defaultValue: "mysql"
     }
       stages {
         stage('Checkout GIT repository') {
