@@ -34,7 +34,7 @@ pipeline {
                     """
 
                     sh """
-                    ls $(pwd)/pipelines/include/create_developer.sql -ald
+                    ls \$(pwd)/pipelines/include/create_developer.sql -ald
                     """
 
                     sh """
