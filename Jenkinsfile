@@ -35,33 +35,10 @@ pipeline {
                 */
                 def localsqldir_write = (sh(script: "pwd", returnStdout: true).trim())
                 def localsqldir = "/home/support/works/orajen-fork/sql"
-                sh """
-                if [ "$db_port" -gt 0 ] && [ "$db_port" -lt 65536 ]; then
-                    if [ "$db_type" == "mysql" ]; then
-                      echo "mysql"
-                    elif [ "$db_type" == "postgres" ]; then
-                      echo "postgres"
-                    elif [ "$db_type" == "oracle" ]; then
-                      echo "oracle"
-                    else
-                      echo "erro do else"
-                    fi
 
-                    #if [ \"$params.DB_TYPE\" == \"mysql\" ]; then
-                    #    docker run -it -d --rm --name ${containerName} -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_USER=developer -e MYSQL_PASSWORD=$params.DB_PASS -e MYSQL_DATABASE=DEVAPP -p $params.DB_PORT:3306 --name $containerName -v $localsqldir:/docker-entrypoint-initdb.d mysql
-                    #elif [ \"$params.DB_TYPE\" == \"postgres\" ]; then
-                    #    docker run -it -d --rm --name ${containerName} -e POSTGRES_USER=developer -e POSTGRES_PASSWORD=$params.DB_PASS -e POSTGRES_DB=DEVAPP -p $params.DB_PORT:5432 --name $containerName -v $localsqldir:/docker-entrypoint-initdb.d postgres
-                    #elif [ \"$params.DB_TYPE\" == \"oracle\" ]; then
-                    #    docker run -it -d --rm --name ${containerName} -e ORACLE_USER=developer -e ORACLE_PASSWORD=$params.DB_PASS -e ORACLE_DB=DEVAPP -p $params.DB_PORT:1521 --name $containerName -v $localsqldir/oracle:/docker-entrypoint-initdb.d container-registry.oracle.com/database/express:latest
-                    #fi
-
-                    echo if 1
-                    echo "Docker container name $containerName created: $params.DB_TYPE://developer@<docker_host_ip>:$params.DB_PORT/"
-                else
-                    echo "TCP port out of range: $db_port"
-                    exit 1
-                fi
-                """
+                if (env.BRANCH_NAME.contains('deploy')) {
+                    sh """echo if111"""
+                }
               }
             }
         }
