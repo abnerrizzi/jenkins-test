@@ -26,7 +26,8 @@ pipeline {
               script {
                 def dateTime = (sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim())
                 def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
-                def value = "${params.DB_PORT}"
+                def db_port = "${params.DB_PORT}"
+                def db_type = "${params.DB_TYPE}"
                 /*
                 The directory below was fixed because I ran jenkins in using the host docker;
                 because that mount point directory must be in the docker host, not in jenkins container
@@ -35,12 +36,12 @@ pipeline {
                 def localsqldir_write = (sh(script: "pwd", returnStdout: true).trim())
                 def localsqldir = "/home/support/works/orajen-fork/sql"
                 sh """
-                if [ "$value" -gt 0 ] && [ "$value" -lt 65536 ]; then
-                    if [ "${params.DB_TYPE}" == "mysql" ]; then
+                if [ "$db_port" -gt 0 ] && [ "$db_port" -lt 65536 ]; then
+                    if [ "${db_type}" == "mysql" ]; then
                       echo "mysql"
-                    elif [ "${params.DB_TYPE}" == "postgres" ]; then
+                    elif [ "${db_type}" == "postgres" ]; then
                       echo "postgres"
-                    elif [ "${params.DB_TYPE}" == "oracle" ]; then
+                    elif [ "${db_type}" == "oracle" ]; then
                       echo "oracle"
                     else
                       echo "erro do else"
@@ -57,7 +58,7 @@ pipeline {
                     echo if 1
                     echo "Docker container name $containerName created: $params.DB_TYPE://developer@<docker_host_ip>:$params.DB_PORT/"
                 else
-                    echo "TCP port out of range: $value"
+                    echo "TCP port out of range: $db_port"
                     exit 1
                 fi
                 """
