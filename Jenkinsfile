@@ -23,13 +23,18 @@ pipeline {
         stage('Start new container using latest image and create user') {
             steps {     
               script {
-                def dateTime = (sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim())
-                def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
-                sh """
-                docker run -it -d --rm --name ${containerName} -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_USER=developer -e MYSQL_PASSWORD=$params.MYSQL_PASSWORD -e MYSQL_DATABASE=DEVAPP -p $params.MYSQL_PORT:3306 --name $containerName mysql
-                """
+                def portNumber = $params.MYSQL_PORT
+                if (portNumber >= 0 && portNumber <= 65535) {
+                  def dateTime = (sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim())
+                  def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
+                  sh """
+                  docker run -it -d --rm --name ${containerName} -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_USER=developer -e MYSQL_PASSWORD=$params.MYSQL_PASSWORD -e MYSQL_DATABASE=DEVAPP -p $params.MYSQL_PORT:3306 --name $containerName mysql
+                  """
 
-                echo "Docker container name $containerName created: mysql://developer@<docker_host_ip>:$params.MYSQL_PORT/"
+                  echo "Docker container name $containerName created: mysql://developer@<docker_host_ip>:$params.MYSQL_PORT/"
+                } else {
+                  error ("Port is not valid. Please enter a valid port number between 0 and 65535")
+                }
               }
             }
         }
