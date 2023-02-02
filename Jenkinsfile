@@ -48,15 +48,15 @@ pipeline {
 
                 if (params.DB_TYPE.contains('mysql')) {
                     sh """
-                    docker run -it -d --rm --name ${containerName} -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_USER=developer -e MYSQL_PASSWORD=$params.DB_PASS -e MYSQL_DATABASE=DEVAPP -p $params.DB_PORT:3306 --name $containerName -v $localsqldir:/docker-entrypoint-initdb.d mysql
+                    docker run -it -d --rm --name ${containerName} -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_USER=developer -e MYSQL_PASSWORD=$params.DB_PASS -e MYSQL_DATABASE=DEVAPP -p $params.DB_PORT:3306 --name $containerName -v $localsqldir/${db_type}:/docker-entrypoint-initdb.d mysql
                     """
                 } else if (params.DB_TYPE.contains('postgres')) {
                     sh """
-                    docker run -it -d --rm --name ${containerName} -e POSTGRES_USER=developer -e POSTGRES_PASSWORD=$params.DB_PASS -e POSTGRES_DB=DEVAPP -p $params.DB_PORT:5432 --name $containerName -v $localsqldir:/docker-entrypoint-initdb.d postgres
+                    docker run -it -d --rm --name ${containerName} -e POSTGRES_USER=developer -e POSTGRES_PASSWORD=$params.DB_PASS -e POSTGRES_DB=DEVAPP -p $params.DB_PORT:5432 --name $containerName -v $localsqldir/${db_type}:/docker-entrypoint-initdb.d postgres
                     """
                 } else if (params.DB_TYPE.contains('oracle')) {
                     sh """
-                    docker run -it -d --rm --name ${containerName} -e ORACLE_USER=developer -e ORACLE_PASSWORD=$params.DB_PASS -e ORACLE_DB=DEVAPP -p $params.DB_PORT:1521 --name $containerName -v $localsqldir/oracle:/docker-entrypoint-initdb.d container-registry.oracle.com/database/express:latest"""
+                    docker run -it -d --rm --name ${containerName} -e ORACLE_USER=developer -e ORACLE_PASSWORD=$params.DB_PASS -e ORACLE_DB=DEVAPP -p $params.DB_PORT:1521 --name $containerName -v $localsqldir/${db_type}/oracle:/docker-entrypoint-initdb.d container-registry.oracle.com/database/express:latest"""
                 } else {
                     sh """ Unexpected error """
                     exit 1
