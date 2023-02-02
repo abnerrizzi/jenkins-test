@@ -31,6 +31,7 @@ pipeline {
                     echo "Valid TCP port"
                 else
                     echo "Invalid TCP port"
+                    exit
                 fi
                 """
 
