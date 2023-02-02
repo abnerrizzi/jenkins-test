@@ -9,7 +9,6 @@ I tried to be concise.
 
 # Observations and recommendations
 [FIX]es:
-- type in sql file;
 - docker build process removed (unnedded step waisting time and resources)
 
 
