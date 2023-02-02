@@ -26,9 +26,11 @@ pipeline {
                 def dateTime = (sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim())
                 def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
                 def value = "${params.MYSQL_PORT}"
-                # The directory below was fixed because I ran jenkins in using the host docker;
-                # because that during mount point the directory must be in the docker host, not in jenkins container
-                # I think if jenkis is istalled locally or using a agent will be easy to fix this hardcoded session
+                /*
+                The directory below was fixed because I ran jenkins in using the host docker;
+                because that mount point directory must be in the docker host, not in jenkins container
+                I think if jenkis is istalled locally or using a agent will be easy to fix this hardcoded session
+                */
                 def localsqldir_write = (sh(script: "pwd", returnStdout: true);trim())
                 def localsqldir = "/home/support/works/orajen-fork/sql"
                 sh """
