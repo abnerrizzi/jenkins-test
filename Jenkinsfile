@@ -34,7 +34,7 @@ pipeline {
                 */
                 def localsqldir_write = (sh(script: "pwd", returnStdout: true).trim())
                 def localsqldir = "/home/support/works/orajen-fork/sql"
-                sh """
+                sh '''#!/bin/bash
                 if [ "$value" -gt 0 ] && [ "$value" -lt 65536 ]; then
                     echo $localsqldir_write
                     if [ \"$params.DB_TYPE\" == \"mysql\" ]; then
@@ -49,7 +49,7 @@ pipeline {
                     echo "TCP port out of range: $value"
                     exit 1
                 fi
-                """
+                '''
               }
             }
         }
