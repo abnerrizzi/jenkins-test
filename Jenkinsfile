@@ -27,7 +27,7 @@ pipeline {
                 def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
                 def value = "${params.MYSQL_PORT}"
                 sh """
-                if [[ "$value" =~ ^[0-9]{1,5}$ ]] && [[ "$value" -gt 0 ]] && [[ "$value" -lt 65536 ]]; then
+                if [[ "$value" -gt 0 ]] && [[ "$value" -lt 65536 ]]; then
                     echo "Valid TCP port"
                 else
                     echo "Invalid TCP port"
