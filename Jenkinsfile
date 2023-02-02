@@ -32,7 +32,7 @@ pipeline {
                     echo "Docker container name $containerName created: mysql://developer@<docker_host_ip>:$params.MYSQL_PORT/"
                 else
                     echo "Invalid TCP port: $value"
-                    exit
+                    exit 1
                 fi
                 """
 
