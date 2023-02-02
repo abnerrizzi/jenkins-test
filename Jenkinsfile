@@ -37,7 +37,7 @@ pipeline {
                 sh """
                 if [ "$value" -gt 0 ] && [ "$value" -lt 65536 ]; then
                     echo $localsqldir_write
-                    if [[ \"$params.DB_TYPE\" -eq \"mysql\" ]; then
+                    if [ \"$params.DB_TYPE\" -eq \"mysql\" ]; then
                         docker run -it -d --rm --name ${containerName} -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_USER=developer -e MYSQL_PASSWORD=$params.DB_PASS -e MYSQL_DATABASE=DEVAPP -p $params.DB_PORT:3306 --name $containerName -v $localsqldir:/docker-entrypoint-initdb.d mysql
                     elif [ "$params.DB_TYPE" -eq "postgres" ]; then
                         docker run -it -d --rm --name ${containerName} -e POSTGRES_USER=developer -e POSTGRES_PASSWORD=$params.DB_PASS -e POSTGRES_DB=DEVAPP -p $params.DB_PORT:5432 --name $containerName -v $localsqldir:/docker-entrypoint-initdb.d postgres
