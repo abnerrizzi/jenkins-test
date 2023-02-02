@@ -1,5 +1,5 @@
 pipeline {
-    agent docker { image: 'docker:dind'}
+    agent any
     options {
         disableConcurrentBuilds()
         disableResume()
