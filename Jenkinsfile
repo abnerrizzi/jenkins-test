@@ -34,10 +34,6 @@ pipeline {
                     """
 
                     sh """
-                    ls \$(pwd)/pipelines/include/create_developer.sql -ald
-                    """
-
-                    sh """
                     docker build pipelines/ -t $params.ENVIRONMENT_NAME:latest
                     """
 
@@ -54,7 +50,10 @@ pipeline {
                 def dateTime = (sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim())
                 def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
                 sh """
-                docker run -itd --name ${containerName} --rm -e MYSQL_ROOT_PASSWORD=$params.MYSQL_PASSWORD -p $params.MYSQL_PORT:3306 -v /$(pwd)/pipelines/include/create_developer.sql:/docker-entrypoint-initdb.d $params.ENVIRONMENT_NAME:latest
+                docker run -itd --name ${containerName} --rm -e MYSQL_ROOT_PASSWORD=$params.MYSQL_PASSWORD \
+                    -p $params.MYSQL_PORT:3306 \
+                    -v /$(pwd)/pipelines/include/create_developer.sql:/docker-entrypoint-initdb.d
+                    $params.ENVIRONMENT_NAME:latest
                 """
 
                 echo "Docker container created: $containerName"
