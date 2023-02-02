@@ -55,7 +55,7 @@ pipeline {
                 def containerName = "${params.ENVIRONMENT_NAME}_${dateTime}"
                 sh """
                 docker run -itd --name ${containerName} --rm -e MYSQL_ROOT_PASSWORD=$params.MYSQL_PASSWORD \
-                    -p $params.MYSQL_PORT:3306 \
+                    -p \$params.MYSQL_PORT:3306 \
                     -v /$(pwd)/pipelines/include/create_developer.sql:/docker-entrypoint-initdb.d
                     $params.ENVIRONMENT_NAME:latest
                 """
