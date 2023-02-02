@@ -8,9 +8,9 @@ pipeline {
     }
 
     parameters {
-        string name: 'ENVIRONMENT_NAME', trim: true, defaultValue: env1
+        string name: 'ENVIRONMENT_NAME', trim: true, defaultValue: "env1"
         password defaultValue: '', description: 'Password to use for MySQL container - root user', name: 'MYSQL_PASSWORD'
-        string name: 'MYSQL_PORT', trim: true , defaultValue: 13306 
+        string name: 'MYSQL_PORT', trim: true , defaultValue: "13306"
 
         booleanParam(name: 'SKIP_STEP_1', defaultValue: false, description: 'STEP 1 - RE-CREATE DOCKER IMAGE')
     }
