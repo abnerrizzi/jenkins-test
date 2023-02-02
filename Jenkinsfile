@@ -18,7 +18,7 @@ pipeline {
             steps {     
               script {
                 git branch: 'feature-jenkins',
-                credentialsId: 'd499512c-41c0-4a53-bcf1-fe62fd9fd135',
+                credentialsId: 'dfe8230d-dd9b-49df-8ed7-362b17864d2e',
                 url: 'git@github.com:arizzi-sandbox/orajen.git'
               }
             }
